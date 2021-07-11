@@ -103,8 +103,8 @@ public class Game {
         timerPanel.setLayout(null);
 
         gamePanel = new JPanel();
-        gamePanel.setBackground(new Color(74,74,74,255));
-        gamePanel.setLayout(new GridLayout(heightField,widthFiled));
+        gamePanel.setBackground(new Color(74, 74, 74, 255));
+        gamePanel.setLayout(new GridLayout(heightField, widthFiled));
         gamePanel.setSize(widthFiled * 25, heightField * 25);
 
         stopwatch.timerLabel.setBounds((frame.getWidth() - 46 - 110), 5, 105, 50);
@@ -148,8 +148,6 @@ public class Game {
                                         newGameButton.setText("L");
 
                                         endGameLoseMessage();
-
-
 
 
                                     } else if (playField.getNeighboursWithMine(finalCoordinateX, finalCoordinateY) == 0) {
@@ -246,24 +244,24 @@ public class Game {
         frame.setVisible(true);
 
 
-
     }
 
-    public void endGameLoseMessage(){
+    public void endGameLoseMessage() {
 
         String[] response = {"Nova hra", "Zmenit obtiznost", "Konec"};
         String message;
 
-        if (bestTime == null){
-            message = "Neuspel jsi!           Zadneho rekordu jeste nebylo dosazeno";
+        if (bestTime == null) {
+            message = "Neuspel jsi!           Zadneho rekordu jeste nebylo dosazeno.";
         } else {
             message = "Neuspel jsi!                                   Rekord: " + bestMinutesString + ":" + bestSecondsString;
         }
 
         int action = JOptionPane.showOptionDialog(null, message, "Konec hry",
-                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,null, response, 0);
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, response, 0);
 
-        switch (action){
+
+        switch (action) {
 
             case 0 -> {
                 frame.dispose();
@@ -278,33 +276,27 @@ public class Game {
         }
     }
 
-    public void endGameWinMessage(){
+    public void endGameWinMessage() {
 
-        String[] response = {"Nova hra", "Zmenit obtiznost", "Konec"};
+        String[] response = {"Hrat znovu", "Zmenit obtiznost", "Konec"};
         String message;
 
-        if (bestTime == null){
+        if (bestTime == null || bestTime > stopwatch.getElapsedTime()) {
             bestTime = stopwatch.getElapsedTime();
             bestSeconds = (bestTime / 1000) % 60;
             bestMinutes = (bestTime / 60000) % 60;
             bestSecondsString = String.format("%02d", bestSeconds);
             bestMinutesString = String.format("%02d", bestMinutes);
             message = "Gratulujeme! Dosahl jsi noveho rekordu!!! Novy rekord: " + bestMinutesString + ":" + bestSecondsString;
-        } else if (bestTime > stopwatch.getElapsedTime()){
-            bestTime = stopwatch.getElapsedTime();
-            bestSeconds = (bestTime / 1000) % 60;
-            bestMinutes = (bestTime / 60000) % 60;
-            bestSecondsString = String.format("%02d", bestSeconds);
-            bestMinutesString = String.format("%02d", bestMinutes);
-            message = "Gratulujeme! Dosahl jsi noveho rekordu!!! Novy rekord: " + bestMinutesString + ":" + bestSecondsString;
+
         } else {
             message = "Gratulujeme! Vyhral jsi!                       Stavajici rekord: " + bestMinutesString + ":" + bestSecondsString;
         }
 
         int action = JOptionPane.showOptionDialog(null, message, "Vyhral jsi!",
-                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,null, response, 0);
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, response, 0);
 
-        switch (action){
+        switch (action) {
 
             case 0 -> {
                 frame.dispose();
